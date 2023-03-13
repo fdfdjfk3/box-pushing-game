@@ -117,6 +117,7 @@ impl Tile {
             }
             TileType::Door(_, false) => {
                 window.attrset(pancurses::COLOR_PAIR(5));
+                window.attron(pancurses::A_BOLD);
             }
             TileType::Door(_, true) => {
                 window.attrset(pancurses::COLOR_PAIR(5));
@@ -262,6 +263,43 @@ pub fn get_maps() -> Vec<MapData> {
         // Level 1
         MapData {
             tile_map: [
+                Tile::new_wall(0, 0, TileType::Wall1, Direction::Right, 30),
+                Tile::new_wall(0, 0, TileType::Wall1, Direction::Down, 7),
+                Tile::new_wall(6, 0, TileType::Wall1, Direction::Right, 23),
+                Tile::new_wall(6, 23, TileType::Wall1, Direction::Down, 10),
+                Tile::new_wall(16, 23, TileType::Wall1, Direction::Right, 7),
+                Tile::new_wall(16, 29, TileType::Wall1, Direction::Up, 17),
+                vec![tile!(13, 26, TileType::WinPad)],
+            ]
+            .concat(),
+            player_spawn: (3, 3),
+            flavor_text: Some("Welcome".to_string()),
+        },
+        // Level 2
+        MapData {
+            tile_map: [
+                Tile::new_wall(15, 5, TileType::Wall1, Direction::Right, 30),
+                Tile::new_wall(14, 34, TileType::Wall1, Direction::Up, 15),
+                Tile::new_wall(0, 34, TileType::Wall1, Direction::Left, 35),
+                Tile::new_wall(0, 0, TileType::Wall1, Direction::Down, 10),
+                Tile::new_wall(9, 0, TileType::Wall1, Direction::Right, 31),
+                Tile::new_wall(9, 32, TileType::Wall1, Direction::Right, 2),
+                Tile::new_wall(14, 5, TileType::Wall1, Direction::Up, 5),
+                Tile::new_wall(14, 17, TileType::Wall1, Direction::Up, 2),
+                vec![tile!(12, 17, TileType::Door(Some(0), false))],
+                Tile::new_wall(11, 17, TileType::Wall1, Direction::Up, 2),
+                vec![tile!(10, 11, TileType::Button(0))],
+                vec![tile!(7, 2, TileType::WinPad)],
+                vec![tile!(9, 31, TileType::Door(Some(1), false))],
+                vec![tile!(14, 33, TileType::Button(1))],
+            ]
+            .concat(),
+            player_spawn: (14, 6),
+            flavor_text: Some("Buttons? What do they do?".to_string()),
+        },
+        // Level 3
+        MapData {
+            tile_map: [
                 Tile::new_wall(0, 0, TileType::Wall1, Direction::Right, 40),
                 Tile::new_wall(0, 0, TileType::Wall1, Direction::Down, 6),
                 Tile::new_wall(6, 0, TileType::Wall1, Direction::Right, 40),
@@ -276,19 +314,7 @@ pub fn get_maps() -> Vec<MapData> {
             ]
             .concat(),
             player_spawn: (3, 3),
-            flavor_text: Some("Welcome".to_string()),
-        },
-        // Level 2
-        MapData {
-            tile_map: [
-                Tile::new_wall(0, 0, TileType::Wall1, Direction::Right, 40),
-                Tile::new_wall(0, 0, TileType::Wall1, Direction::Down, 20),
-                Tile::new_wall(19, 0, TileType::Wall1, Direction::Right, 40),
-                Tile::new_wall(0, 39, TileType::Wall1, Direction::Down, 20),
-            ]
-            .concat(),
-            player_spawn: (3, 20),
-            flavor_text: Some("nothing's here".to_string()),
+            flavor_text: Some("You must activate both buttons at once.".to_string()),
         },
     ]
 }
